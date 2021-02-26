@@ -1,7 +1,5 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,5 +12,22 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return 'Primeira API REST com Lumen... ' . $router->app->version();
+});
+
+$router->group(['prefix' => 'courses'], function() use($router){
+
+    $router->get('/', 'CourseController@index');
+    $router->get('/{course}', 'CourseController@show');
+
+    $router->post('/','CourseController@store');
+    $router->put('/{course}', 'CourseController@update');
+    $router->delete('/{course}', 'CourseController@destroy');
+
+    /*
+        Recurso: Curso (Course)
+        Endpoint: /courses (cursos)
+        GET, POST, PUT/PATCH, DELETE
+    */
+
 });
